@@ -22,7 +22,6 @@ export function Navigation() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 border-b border-border/50 transition-all duration-300">
       <div className="max-width-container px-4 md:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="w-6 h-6 bg-accent rounded-lg flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Search size={16} className="text-white" />
@@ -32,7 +31,6 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-12">
             {[
               { href: '/', label: 'Home' },
@@ -51,7 +49,6 @@ export function Navigation() {
             ))}
           </div>
 
-          {/* Right Icons */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               type="button"
@@ -66,7 +63,6 @@ export function Navigation() {
               <Search size={20} />
             </button>
 
-            {/* Cart Icon */}
             <Link href="/cart" className="relative group">
               <button type="button" className="text-primary hover:text-accent transition-colors p-2 hover:bg-muted rounded-lg transition-all duration-300 relative">
                 <ShoppingBag size={20} />
@@ -78,7 +74,6 @@ export function Navigation() {
               </button>
             </Link>
             
-            {/* Mobile Menu Button */}
             <button
               className="md:hidden p-2 text-primary hover:bg-muted rounded-lg transition-all duration-300"
               onClick={() => setIsOpen(!isOpen)}
@@ -89,7 +84,6 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
             isOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
@@ -37,7 +36,6 @@ export default function ContactPage() {
     <main className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
       <section className="relative pt-24 md:pt-32 pb-12 md:pb-20 px-4 md:px-8 bg-muted/30 overflow-hidden">
         <div className="max-width-container relative z-10">
           <div className="flex items-center gap-2 text-xs md:text-sm text-accent mb-6">
@@ -53,11 +51,9 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Info Cards */}
       <section className="py-16 md:py-24 px-4 md:px-8">
         <div className="max-width-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {/* Email Card */}
             <div className="p-6 md:p-8 border border-border rounded-lg hover:border-accent hover:shadow-lg transition-all duration-300 group">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                 <Mail size={24} className="text-accent" />
@@ -67,7 +63,6 @@ export default function ContactPage() {
               <p className="text-sm text-muted-foreground">We respond within 24 hours</p>
             </div>
 
-            {/* Phone Card */}
             <div className="p-6 md:p-8 border border-border rounded-lg hover:border-accent hover:shadow-lg transition-all duration-300 group">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                 <Phone size={24} className="text-accent" />
@@ -77,7 +72,6 @@ export default function ContactPage() {
               <p className="text-sm text-muted-foreground">Mon-Fri, 9am-6pm EST</p>
             </div>
 
-            {/* Location Card */}
             <div className="p-6 md:p-8 border border-border rounded-lg hover:border-accent hover:shadow-lg transition-all duration-300 group">
               <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
                 <MapPin size={24} className="text-accent" />
@@ -90,16 +84,14 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Info Section */}
       <section className="py-16 md:py-24 px-4 md:px-8 bg-muted/20">
         <div className="max-width-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Contact Form */}
             <div>
               <h2 className="text-3xl md:text-4xl font-light text-primary mb-8">
                 Send Us a Message
               </h2>
-              
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-primary mb-2">
@@ -180,7 +172,6 @@ export default function ContactPage() {
               </form>
             </div>
 
-            {/* Information & Benefits */}
             <div className="space-y-12">
               <div>
                 <h3 className="text-2xl md:text-3xl font-light text-primary mb-6">

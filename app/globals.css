@@ -211,18 +211,6 @@ body {
     @apply max-w-7xl mx-auto;
   }
 
-  /* Modern Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -324,37 +312,30 @@ body {
     background-size: 1000px 100%;
   }
 
-  /* Smooth transitions */
   .transition-smooth {
     @apply transition-all duration-500;
   }
 
-  /* Smooth scroll behavior */
   html {
     scroll-behavior: smooth;
   }
 
-  /* Selection styling */
   ::selection {
     @apply bg-accent text-white;
   }
 
-  /* Link hover effects */
   a {
     @apply transition-colors duration-300;
   }
 
-  /* Button base transitions */
   button {
     @apply transition-all duration-300;
   }
 
-  /* Input focus states */
   input, textarea, select {
     @apply transition-all duration-300;
   }
 
-  /* Image hover effects */
   img {
     @apply transition-transform duration-300;
   }

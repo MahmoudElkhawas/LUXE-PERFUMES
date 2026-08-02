@@ -39,7 +39,6 @@ function ShopPageContent() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Set category from URL query param on mount
   useEffect(() => {
     const categoryParam = searchParams.get('category');
     if (categoryParam) {
@@ -72,7 +71,6 @@ function ShopPageContent() {
     <main className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
       <section className="pt-24 md:pt-32 pb-8 md:pb-12 px-4 md:px-8 bg-muted/30">
         <div className="max-width-container">
           <h1 className="text-4xl md:text-6xl font-light text-primary mb-4">
@@ -90,10 +88,8 @@ function ShopPageContent() {
 
 
 
-      {/* Shop Section with Filters and Products */}
       <section className="py-12 md:py-20 px-4 md:px-8">
         <div className="max-width-container">
-          {/* Mobile Filter Toggle */}
           <div className="md:hidden mb-6 flex items-center justify-between">
             <p className="text-sm text-muted-foreground">
               {filteredProducts.length} results
@@ -108,9 +104,7 @@ function ShopPageContent() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:gap-8">
-            {/* Filters Sidebar - Mobile Drawer */}
             <div className={`md:col-span-1 md:block ${showFilters ? 'block' : 'hidden'}`}>
-              {/* Mobile Filter Header */}
               <div className="md:hidden flex items-center justify-between mb-6 pb-4 border-b border-border">
                 <h2 className="text-lg font-medium text-primary">Filters</h2>
                 <button
@@ -122,7 +116,6 @@ function ShopPageContent() {
               </div>
 
               <div className="space-y-6 md:space-y-8 md:sticky md:top-24">
-                {/* Category Filter */}
                 <div>
                   <h3 className="text-base md:text-lg font-medium text-primary mb-3 md:mb-4 pb-3 border-b border-border">
                     Category
@@ -147,7 +140,6 @@ function ShopPageContent() {
                   </div>
                 </div>
 
-                {/* Price Filter */}
                 <div>
                   <h3 className="text-base md:text-lg font-medium text-primary mb-3 md:mb-4 pb-3 border-b border-border">
                     Price Range
@@ -179,7 +171,6 @@ function ShopPageContent() {
                   </div>
                 </div>
 
-                {/* Mobile Apply Button */}
                 <button
                   onClick={() => setShowFilters(false)}
                   className="md:hidden w-full px-4 py-3 bg-accent text-white font-medium uppercase tracking-wider text-sm rounded-lg hover:bg-accent/90 transition-colors"
@@ -189,9 +180,7 @@ function ShopPageContent() {
               </div>
             </div>
 
-            {/* Products Grid */}
             <div className="md:col-span-3">
-              {/* Desktop Top Bar */}
               <div className="hidden md:flex items-center justify-between mb-8 gap-4">
                 <p className="text-sm text-muted-foreground">
                   Showing 1–{filteredProducts.length} of {filteredProducts.length} results
@@ -213,7 +202,6 @@ function ShopPageContent() {
                 </div>
               </div>
 
-              {/* Mobile Sort Dropdown */}
               <div className="md:hidden mb-6">
                 <div className="relative">
                   <select
@@ -230,7 +218,6 @@ function ShopPageContent() {
                 </div>
               </div>
 
-              {/* Products */}
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
                 {filteredProducts.map((product) => (
                   <div key={product.id} className="group">
@@ -277,7 +264,6 @@ function ShopPageContent() {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-12 md:py-16 px-4 md:px-8 bg-muted/20">
         <div className="max-width-container">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">

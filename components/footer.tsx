@@ -5,7 +5,6 @@ export function Footer() {
     <footer className="bg-primary text-primary-foreground border-t border-white/10">
       <div className="max-width-container px-4 md:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          {/* Brand */}
           <div className="space-y-4 group">
             <h3 className="text-lg font-semibold tracking-widest mb-4 uppercase transition-colors duration-300 group-hover:text-accent">
               Luxe Perfumes
@@ -15,7 +14,6 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Collections */}
           <div>
             <h4 className="font-semibold tracking-wider mb-6 uppercase text-sm text-accent">Collections</h4>
             <ul className="space-y-3">
@@ -37,7 +35,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
           <div>
             <h4 className="font-semibold tracking-wider mb-6 uppercase text-sm text-accent">Company</h4>
             <ul className="space-y-3">
@@ -59,7 +56,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Follow */}
           <div>
             <h4 className="font-semibold tracking-wider mb-6 uppercase text-sm text-accent">Follow Us</h4>
             <ul className="space-y-3">
@@ -82,7 +78,6 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-white/10 pt-8">
           <p className="text-center text-sm opacity-70 hover:opacity-100 transition-opacity duration-300">
             © 2024 Luxe Perfumes. All rights reserved.

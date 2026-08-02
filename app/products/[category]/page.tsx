@@ -21,7 +21,6 @@ export default function ProductsPage({ params }: { params: { category: 'men' | '
     <main className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Category Hero */}
       <section className="pt-32 md:pt-40 pb-12 section-padding bg-gradient-to-r from-primary/5 to-accent/5">
         <div className="max-width-container">
           <h1 className="text-5xl md:text-6xl font-bold text-primary mb-4">
@@ -33,7 +32,6 @@ export default function ProductsPage({ params }: { params: { category: 'men' | '
         </div>
       </section>
 
-      {/* Products Grid */}
       <section className="section-padding">
         <div className="max-width-container">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -44,7 +42,6 @@ export default function ProductsPage({ params }: { params: { category: 'men' | '
                 onMouseEnter={() => setHoveredId(product.id)}
                 onMouseLeave={() => setHoveredId(null)}
               >
-                {/* Product Card */}
                 <div className="bg-muted/50 rounded-lg overflow-hidden mb-4 h-72 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:bg-muted/70 relative">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/10 to-primary/10 group-hover:from-accent/20 group-hover:to-primary/20 transition-all" />
                   <div className="text-5xl font-bold text-primary/20 group-hover:text-accent/20 transition-colors">
@@ -52,7 +49,6 @@ export default function ProductsPage({ params }: { params: { category: 'men' | '
                   </div>
                 </div>
 
-                {/* Product Info */}
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold text-primary group-hover:text-accent transition-colors">
                     {product.name}
@@ -95,7 +91,6 @@ export default function ProductsPage({ params }: { params: { category: 'men' | '
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="section-padding bg-primary text-primary-foreground">
         <div className="max-width-container text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">

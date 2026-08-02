@@ -68,7 +68,6 @@ export default function CartPage() {
     <main className="min-h-screen bg-background pt-24 pb-16">
       <section className="py-12 md:py-20 px-4 md:px-8">
         <div className="max-width-container">
-          {/* Header */}
           <div className="mb-12">
             <h1 className="text-3xl md:text-4xl font-semibold text-primary">
               Shopping Cart
@@ -79,9 +78,7 @@ export default function CartPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-            {/* Cart Items - 70% width */}
             <div className="lg:col-span-2 space-y-4">
-              {/* Cart Items List */}
               <div className="space-y-4">
                 {items.map((item) => (
                   <div
@@ -89,7 +86,6 @@ export default function CartPage() {
                     className="group bg-white rounded-lg border border-border p-4 md:p-6 hover:border-accent/40 hover:shadow-md transition-all duration-300"
                   >
                     <div className="flex gap-4 md:gap-6">
-                      {/* Product Image */}
                       <div className="relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
                         <Image
                           src={item.image}
@@ -99,7 +95,6 @@ export default function CartPage() {
                         />
                       </div>
 
-                      {/* Product Details */}
                       <div className="flex-1 flex flex-col justify-between">
                         <div>
                           <h3 className="text-lg md:text-lg font-semibold text-primary group-hover:text-accent transition-colors line-clamp-2">
@@ -113,7 +108,6 @@ export default function CartPage() {
                           </p>
                         </div>
 
-                        {/* Quantity and Actions */}
                         <div className="flex items-center justify-between pt-4">
                           <div className="flex items-center gap-2 bg-muted rounded-lg p-1">
                             <button
@@ -152,7 +146,6 @@ export default function CartPage() {
                         </div>
                       </div>
 
-                      {/* Item Total */}
                       <div className="text-right flex flex-col justify-between">
                         <div>
                           <p className="text-xs text-muted-foreground mb-1">Subtotal</p>
@@ -163,7 +156,6 @@ export default function CartPage() {
                       </div>
                     </div>
 
-                    {/* Remove Confirmation */}
                     {removeConfirm === item.id && (
                       <div className="mt-4 pt-4 border-t border-border flex items-center justify-between bg-red-50 rounded p-3">
                         <p className="text-sm text-red-700">Remove this item?</p>
@@ -190,7 +182,6 @@ export default function CartPage() {
                 ))}
               </div>
 
-              {/* Clear Cart */}
               <button
                 onClick={clearCart}
                 className="w-full py-2 text-muted-foreground hover:text-red-600 font-medium text-sm transition-colors"
@@ -199,12 +190,10 @@ export default function CartPage() {
               </button>
             </div>
 
-            {/* Order Summary - 30% width */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 bg-white rounded-lg border border-border p-6 space-y-6">
                 <h2 className="text-xl font-semibold text-primary">Order Summary</h2>
 
-                {/* Summary Details */}
                 <div className="space-y-3 pb-6 border-b border-border">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Subtotal</span>
@@ -233,7 +222,6 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Free Shipping Info */}
                 {total < FREE_SHIPPING_THRESHOLD && (
                   <div className="p-3 bg-blue-50 rounded-lg flex gap-2">
                     <AlertCircle size={16} className="text-blue-600 flex-shrink-0 mt-0.5" />
@@ -243,13 +231,11 @@ export default function CartPage() {
                   </div>
                 )}
 
-                {/* Total */}
                 <div className="pt-4 flex justify-between items-baseline">
                   <span className="text-sm font-medium text-muted-foreground">Total</span>
                   <span className="text-3xl font-bold text-primary">${finalTotal.toFixed(2)}</span>
                 </div>
 
-                {/* Promo Code */}
                 <div className="space-y-2 pt-4 border-t border-border">
                   <label className="text-sm font-medium text-primary">Promo Code</label>
                   <div className="flex gap-2">
@@ -275,20 +261,17 @@ export default function CartPage() {
                   <p className="text-xs text-muted-foreground">Try &quot;LUXURY20&quot;</p>
                 </div>
 
-                {/* Checkout */}
                 <button className="w-full py-3 bg-accent text-white font-semibold rounded-lg hover:bg-accent/90 transition-all duration-300 flex items-center justify-center gap-2">
                   <Lock size={18} />
                   Proceed to Checkout
                 </button>
 
-                {/* Continue Shopping */}
                 <Link href="/shop">
                   <button className="w-full py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary/5 transition-all duration-300">
                     Continue Shopping
                   </button>
                 </Link>
 
-                {/* Trust Elements */}
                 <div className="pt-4 space-y-2 text-center text-xs text-muted-foreground">
                   <p>✓ Secure checkout with SSL</p>
                   <p>✓ Free returns within 30 days</p>

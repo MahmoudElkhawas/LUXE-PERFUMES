@@ -9,8 +9,7 @@ export default function AboutPage() {
     <main className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Header */}
-      <section className="pt-32  px-4 md:px-8">
+      <section className="pt-32 px-4 md:px-8">
         <div className="max-width-container">
           <h1 className="text-5xl md:text-6xl font-light text-primary mb-4">
             About Luxe Perfumes
@@ -20,8 +19,7 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
-
-      {/* Our Story */}
+      
       <section className="py-24 px-4 md:px-8">
         <div className="max-width-container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -47,7 +45,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values */}
       <section className="py-24 px-4 md:px-8 bg-muted/20">
         <div className="max-width-container">
           <h2 className="text-4xl font-light text-primary mb-12 text-center">

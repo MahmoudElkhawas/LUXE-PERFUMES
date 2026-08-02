@@ -25,7 +25,7 @@ export function HorizontalCarousel({ children }: CarouselProps) {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const scrollAmount = container.clientWidth < 768 ? 300 : 400;
-      
+
       if (direction === 'left') {
         container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
@@ -54,7 +54,6 @@ export function HorizontalCarousel({ children }: CarouselProps) {
         {children}
       </div>
 
-      {/* Left Arrow - Responsive positioning and sizing */}
       {mounted && showArrows && (
         <button
           onClick={() => scroll('left')}
@@ -68,7 +67,6 @@ export function HorizontalCarousel({ children }: CarouselProps) {
         </button>
       )}
 
-      {/* Right Arrow - Responsive positioning and sizing */}
       {mounted && showArrows && (
         <button
           onClick={() => scroll('right')}

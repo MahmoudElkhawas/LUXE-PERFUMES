@@ -48,7 +48,6 @@ export default function CollectionPage({
     <main className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Hero Section */}
       <section className="relative h-96 md:h-screen flex items-center justify-center">
         <Image
           src={collection.image}
@@ -65,7 +64,6 @@ export default function CollectionPage({
         </div>
       </section>
 
-      {/* Featured Products Section */}
       <section className="py-24 px-4 md:px-8">
         <div className="max-width-container">
           <h2 className="text-4xl font-light text-primary mb-12 text-center">
