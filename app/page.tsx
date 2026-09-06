@@ -7,51 +7,51 @@ import { Footer } from '@/components/footer';
 import { HorizontalCarousel } from '@/components/horizontal-carousel';
 import { Award, Truck, RotateCcw, Plus, Minus } from 'lucide-react';
 import { useCart } from '@/context/cart-context';
+import { shopProducts, type ShopProduct } from '@/lib/products';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
-const bestSellers = [
-  { id: 1, name: 'Essence Divine', price: '$89', image: '/products/essence-divine.jpg' },
-  { id: 2, name: 'Golden Hour', price: '$79', image: '/products/golden-hour.jpg' },
-  { id: 3, name: 'Midnight Bloom', price: '$95', image: '/products/midnight-bloom.jpg' },
-  { id: 4, name: 'Silk & Satin', price: '$85', image: '/products/silk-satin.jpg' },
-  { id: 5, name: 'Pure Elegance', price: '$92', image: '/products/pure-elegance.jpg' },
-];
-
-const newCollection = [
-  { id: 1, name: 'Velvet Dreams', price: '$99', image: '/products/velvet-dreams.jpg' },
-  { id: 2, name: 'Crystal Night', price: '$88', image: '/products/crystal-night.jpg' },
-  { id: 3, name: 'Rose Mystique', price: '$94', image: '/products/rose-mystique.jpg' },
-  { id: 4, name: 'Amber Luxe', price: '$91', image: '/products/amber-luxe.jpg' },
-  { id: 5, name: 'Pearl Essence', price: '$87', image: '/products/pearl-essence.jpg' },
-];
+const bestSellers = shopProducts.slice(0, 5);
+const newCollection = shopProducts.slice(5);
 
 export default function Home() {
-  const { addItem, items, updateQuantity } = useCart();
+  const { addItem, items, updateQuantity, openCart } = useCart();
+  const router = useRouter();
   const [cartQuantities, setCartQuantities] = useState<{ [key: string]: number }>({});
 
-  const getProductQuantity = (productId: number) => {
-    const cartItem = items.find(item => item.id === productId.toString());
+  const getProductQuantity = (productId: string) => {
+    const cartItem = items.find(item => item.id === productId);
     return cartItem?.quantity || 0;
   };
 
-  const handleAddToCart = (product: typeof bestSellers[0]) => {
+  const handleAddToCart = (product: ShopProduct) => {
     const quantity = getProductQuantity(product.id);
     if (quantity === 0) {
       addItem({
-        id: product.id.toString(),
+        id: product.id,
         name: product.name,
-        price: parseFloat(product.price.replace('$', '')),
+        price: product.price,
         image: product.image,
         quantity: 1,
       });
+      toast.success('Product added to cart successfully', {
+        duration: 3000,
+        className: 'border-accent/40 bg-background text-primary',
+      });
+      openCart();
     }
   };
 
-  const handleQuantityChange = (product: typeof bestSellers[0], newQuantity: number) => {
+  const handleQuantityChange = (product: ShopProduct, newQuantity: number) => {
     if (newQuantity <= 0) {
       return;
     }
-    updateQuantity(product.id.toString(), newQuantity);
+    updateQuantity(product.id, newQuantity);
+  };
+
+  const openProduct = (productId: string) => {
+    router.push(`/product/${productId}`);
   };
 
 
@@ -178,7 +178,20 @@ export default function Home() {
           <div className="mt-8 md:mt-12 mx-auto">
             <HorizontalCarousel>
               {bestSellers.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-56 sm:w-64 md:w-72 group">
+                <div
+                  key={product.id}
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => openProduct(product.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      openProduct(product.id);
+                    }
+                  }}
+                  className="flex-shrink-0 w-56 sm:w-64 md:w-72 group cursor-pointer rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  aria-label={`View details for ${product.name}`}
+                >
                   <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
                     <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-muted to-muted/80 overflow-hidden">
                       <Image
@@ -193,10 +206,10 @@ export default function Home() {
                       <h3 className="text-sm md:text-base font-semibold text-primary line-clamp-2 group-hover:text-accent transition-colors duration-300">
                         {product.name}
                       </h3>
-                      <p className="text-accent font-bold text-lg">{product.price}</p>
+                      <p className="text-accent font-bold text-lg">${product.price.toFixed(2)}</p>
                       {getProductQuantity(product.id) === 0 ? (
                         <button
-                          onClick={() => handleAddToCart(product)}
+                          onClick={(event) => { event.stopPropagation(); handleAddToCart(product); }}
                           className="w-full px-4 py-2 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 transition-all duration-300 transform hover:scale-105"
                         >
                           Add to Cart
@@ -204,7 +217,7 @@ export default function Home() {
                       ) : (
                         <div className="flex items-center justify-center gap-2 bg-accent/10 rounded-lg p-1">
                           <button
-                            onClick={() => handleQuantityChange(product, getProductQuantity(product.id) - 1)}
+                            onClick={(event) => { event.stopPropagation(); handleQuantityChange(product, getProductQuantity(product.id) - 1); }}
                             className="w-7 h-7 flex items-center justify-center hover:bg-accent hover:text-white rounded transition-all"
                           >
                             <Minus size={14} />
@@ -213,7 +226,7 @@ export default function Home() {
                             {getProductQuantity(product.id)}
                           </span>
                           <button
-                            onClick={() => handleQuantityChange(product, getProductQuantity(product.id) + 1)}
+                            onClick={(event) => { event.stopPropagation(); handleQuantityChange(product, getProductQuantity(product.id) + 1); }}
                             className="w-7 h-7 flex items-center justify-center hover:bg-accent hover:text-white rounded transition-all"
                           >
                             <Plus size={14} />
@@ -241,7 +254,20 @@ export default function Home() {
           <div className="mt-8 md:mt-12 mx-auto">
             <HorizontalCarousel>
               {newCollection.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-56 sm:w-64 md:w-72 group">
+                <div
+                  key={product.id}
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => openProduct(product.id)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      openProduct(product.id);
+                    }
+                  }}
+                  className="flex-shrink-0 w-56 sm:w-64 md:w-72 group cursor-pointer rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  aria-label={`View details for ${product.name}`}
+                >
                   <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2">
                     <div className="relative h-48 sm:h-56 md:h-64 bg-gradient-to-br from-muted to-muted/80 overflow-hidden">
                       <Image
@@ -256,10 +282,10 @@ export default function Home() {
                       <h3 className="text-sm md:text-base font-semibold text-primary line-clamp-2 group-hover:text-accent transition-colors duration-300">
                         {product.name}
                       </h3>
-                      <p className="text-accent font-bold text-lg">{product.price}</p>
+                      <p className="text-accent font-bold text-lg">${product.price.toFixed(2)}</p>
                       {getProductQuantity(product.id) === 0 ? (
                         <button
-                          onClick={() => handleAddToCart(product)}
+                          onClick={(event) => { event.stopPropagation(); handleAddToCart(product); }}
                           className="w-full px-4 py-2 bg-accent text-white text-xs font-semibold rounded-lg hover:bg-accent/90 transition-all duration-300 transform hover:scale-105"
                         >
                           Add to Cart
@@ -267,7 +293,7 @@ export default function Home() {
                       ) : (
                         <div className="flex items-center justify-center gap-2 bg-accent/10 rounded-lg p-1">
                           <button
-                            onClick={() => handleQuantityChange(product, getProductQuantity(product.id) - 1)}
+                            onClick={(event) => { event.stopPropagation(); handleQuantityChange(product, getProductQuantity(product.id) - 1); }}
                             className="w-7 h-7 flex items-center justify-center hover:bg-accent hover:text-white rounded transition-all"
                           >
                             <Minus size={14} />
@@ -276,7 +302,7 @@ export default function Home() {
                             {getProductQuantity(product.id)}
                           </span>
                           <button
-                            onClick={() => handleQuantityChange(product, getProductQuantity(product.id) + 1)}
+                            onClick={(event) => { event.stopPropagation(); handleQuantityChange(product, getProductQuantity(product.id) + 1); }}
                             className="w-7 h-7 flex items-center justify-center hover:bg-accent hover:text-white rounded transition-all"
                           >
                             <Plus size={14} />

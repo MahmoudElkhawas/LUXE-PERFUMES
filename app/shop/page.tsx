@@ -8,19 +8,8 @@ import { Heart, ChevronDown, Truck, Award, Lock, Filter, X } from 'lucide-react'
 import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/context/cart-context';
-
-const products = [
-  { id: '1', name: 'Essence Divine', category: 'Women', price: 89.99, image: '/products/essence-divine.jpg' },
-  { id: '2', name: 'Golden Hour', category: 'Men', price: 79.99, image: '/products/golden-hour.jpg' },
-  { id: '3', name: 'Midnight Bloom', category: 'Women', price: 94.99, image: '/products/midnight-bloom.jpg' },
-  { id: '4', name: 'Silk Satin', category: 'Unisex', price: 84.99, image: '/products/silk-satin.jpg' },
-  { id: '5', name: 'Pure Elegance', category: 'Unisex', price: 74.99, image: '/products/pure-elegance.jpg' },
-  { id: '6', name: 'Velvet Dreams', category: 'Women', price: 99.99, image: '/products/velvet-dreams.jpg' },
-  { id: '7', name: 'Crystal Night', category: 'Men', price: 89.99, image: '/products/crystal-night.jpg' },
-  { id: '8', name: 'Rose Mystique', category: 'Women', price: 87.99, image: '/products/rose-mystique.jpg' },
-  { id: '9', name: 'Amber Luxe', category: 'Men', price: 92.99, image: '/products/amber-luxe.jpg' },
-  { id: '10', name: 'Pearl Essence', category: 'Unisex', price: 81.99, image: '/products/pearl-essence.jpg' },
-];
+import { shopProducts } from '@/lib/products';
+import { toast } from 'sonner';
 
 export default function ShopPage() {
   return (
@@ -31,7 +20,7 @@ export default function ShopPage() {
 }
 
 function ShopPageContent() {
-  const { addItem } = useCart();
+  const { addItem, openCart } = useCart();
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [priceRange, setPriceRange] = useState([0, 500]);
@@ -46,7 +35,7 @@ function ShopPageContent() {
     }
   }, [searchParams]);
 
-  const filteredProducts = products.filter((product) => {
+  const filteredProducts = shopProducts.filter((product) => {
     return (!selectedCategory || product.category === selectedCategory) &&
       product.price >= priceRange[0] && product.price <= priceRange[1];
   });
@@ -57,7 +46,7 @@ function ShopPageContent() {
     );
   };
 
-  const handleAddToCart = (product: typeof products[0]) => {
+  const handleAddToCart = (product: typeof shopProducts[0]) => {
     addItem({
       id: product.id,
       name: product.name,
@@ -65,6 +54,11 @@ function ShopPageContent() {
       image: product.image,
       quantity: 1,
     });
+    toast.success('Product added to cart successfully', {
+      duration: 3000,
+      className: 'border-accent/40 bg-background text-primary',
+    });
+    openCart();
   };
 
   return (
@@ -222,13 +216,15 @@ function ShopPageContent() {
                 {filteredProducts.map((product) => (
                   <div key={product.id} className="group">
                     <div className="relative overflow-hidden rounded-lg mb-3 md:mb-4">
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        width={400}
-                        height={400}
-                        className="w-full h-40 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
+                      <Link href={`/product/${product.id}`} aria-label={`View ${product.name}`}>
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          width={400}
+                          height={400}
+                          className="w-full h-40 md:h-96 object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </Link>
                       <button
                         onClick={() => toggleFavorite(product.id)}
                         className="absolute top-2 md:top-4 right-2 md:right-4 w-8 md:w-10 h-8 md:h-10 rounded-full bg-white flex items-center justify-center shadow-md hover:bg-accent hover:text-white transition-colors"
@@ -244,9 +240,11 @@ function ShopPageContent() {
                       <p className="text-xs uppercase tracking-widest text-accent font-medium truncate">
                         {product.category}
                       </p>
-                      <h3 className="text-sm md:text-lg font-light text-primary group-hover:text-accent transition-colors line-clamp-2">
-                        {product.name}
-                      </h3>
+                      <Link href={`/product/${product.id}`} className="block">
+                        <h3 className="text-sm md:text-lg font-light text-primary group-hover:text-accent transition-colors line-clamp-2">
+                          {product.name}
+                        </h3>
+                      </Link>
                       <p className="text-sm md:text-lg font-medium text-primary">${product.price.toFixed(2)}</p>
                     </div>
 

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { CartProvider } from '@/context/cart-context'
 import { ThemeProvider } from '@/components/theme-provider'
+import { CartDrawer } from '@/components/cart-drawer'
+import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -11,7 +13,6 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: 'Luxe Perfumes - Premium Fragrance Collection',
   description: 'Discover our exclusive collection of luxury perfumes for men, women, and unisex. Experience elegance and sophistication with Luxe Perfumes.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
@@ -47,6 +48,8 @@ export default function RootLayout({
         >
           <CartProvider>
             {children}
+            <CartDrawer />
+            <Toaster position="top-right" closeButton />
           </CartProvider>
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}

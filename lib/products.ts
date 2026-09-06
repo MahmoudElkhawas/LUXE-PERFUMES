@@ -25,6 +25,33 @@ const perfumes = {
   ],
 };
 
+export interface ShopProduct {
+  id: string;
+  name: string;
+  category: 'Women' | 'Men' | 'Unisex';
+  price: number;
+  image: string;
+  description: string;
+  rating: number;
+}
+
+export const shopProducts: ShopProduct[] = [
+  { id: '1', name: 'Essence Divine', category: 'Women', price: 89.99, image: '/products/essence-divine.jpg', description: 'A luminous floral fragrance with soft petals, warm amber, and a graceful musk finish.', rating: 4.8 },
+  { id: '2', name: 'Golden Hour', category: 'Men', price: 79.99, image: '/products/golden-hour.jpg', description: 'A warm, polished composition of bright citrus, smooth woods, and understated spice.', rating: 4.7 },
+  { id: '3', name: 'Midnight Bloom', category: 'Women', price: 94.99, image: '/products/midnight-bloom.jpg', description: 'Rich night-blooming florals layered with velvet woods for an unforgettable evening scent.', rating: 4.9 },
+  { id: '4', name: 'Silk Satin', category: 'Unisex', price: 84.99, image: '/products/silk-satin.jpg', description: 'A balanced veil of clean musk, delicate iris, and creamy sandalwood.', rating: 4.6 },
+  { id: '5', name: 'Pure Elegance', category: 'Unisex', price: 74.99, image: '/products/pure-elegance.jpg', description: 'Fresh, refined, and effortless with airy citrus notes and a soft mineral trail.', rating: 4.5 },
+  { id: '6', name: 'Velvet Dreams', category: 'Women', price: 99.99, image: '/products/velvet-dreams.jpg', description: 'A luxurious blend of plush vanilla, dark rose, and smooth amber.', rating: 4.9 },
+  { id: '7', name: 'Crystal Night', category: 'Men', price: 89.99, image: '/products/crystal-night.jpg', description: 'Crisp aromatic notes meet cool woods and a confident, lasting base.', rating: 4.7 },
+  { id: '8', name: 'Rose Mystique', category: 'Women', price: 87.99, image: '/products/rose-mystique.jpg', description: 'A modern rose composition with bright fruit, soft petals, and warm musk.', rating: 4.8 },
+  { id: '9', name: 'Amber Luxe', category: 'Men', price: 92.99, image: '/products/amber-luxe.jpg', description: 'Deep amber and polished leather softened by woods and a hint of vanilla.', rating: 4.8 },
+  { id: '10', name: 'Pearl Essence', category: 'Unisex', price: 81.99, image: '/products/pearl-essence.jpg', description: 'A clean, elegant scent with luminous florals, soft musk, and gentle woods.', rating: 4.6 },
+];
+
+export function getShopProduct(id: string) {
+  return shopProducts.find((product) => product.id === id);
+}
+
 export const catalogData = {
   men: {
     title: 'Men\'s Collection',

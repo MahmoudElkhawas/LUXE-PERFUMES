@@ -16,6 +16,9 @@ export interface CartContextType {
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
   total: number;
   itemCount: number;
 }
@@ -24,6 +27,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   // Hydrate from localStorage on mount
@@ -77,6 +81,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setItems([]);
   };
 
+  const openCart = () => setIsCartOpen(true);
+  const closeCart = () => setIsCartOpen(false);
+
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const itemCount = items.length;
 
@@ -88,6 +95,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         removeItem,
         updateQuantity,
         clearCart,
+        isCartOpen,
+        openCart,
+        closeCart,
         total,
         itemCount,
       }}
