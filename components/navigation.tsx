@@ -1,20 +1,52 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Menu, X, Search, ShoppingBag, Moon, SunMedium } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Menu, X, Search, ShoppingBag, Moon, SunMedium, ArrowRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useCart } from '@/context/cart-context';
+import { shopProducts } from '@/lib/products';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const [mounted, setMounted] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const { resolvedTheme, setTheme } = useTheme();
   const { itemCount } = useCart();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (!isSearchOpen) return;
+
+    searchInputRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsSearchOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const searchResults = shopProducts.filter((product) => {
+    if (!normalizedQuery) return true;
+
+    return [product.name, product.category, product.description]
+      .some((value) => value.toLowerCase().includes(normalizedQuery));
+  });
+
+  const closeSearch = () => {
+    setIsSearchOpen(false);
+    setSearchQuery('');
+  };
 
   const isDark = mounted && resolvedTheme === 'dark';
 
@@ -59,7 +91,13 @@ export function Navigation() {
               {mounted && isDark ? <SunMedium size={18} /> : <Moon size={18} />}
             </button>
 
-            <button className="text-primary hover:text-accent transition-colors hidden sm:flex p-2 hover:bg-muted rounded-lg transition-all duration-300">
+            <button
+              type="button"
+              aria-label="Search perfumes"
+              aria-expanded={isSearchOpen}
+              onClick={() => setIsSearchOpen(true)}
+              className="text-primary hover:text-accent transition-colors p-2 hover:bg-muted rounded-lg transition-all duration-300"
+            >
               <Search size={20} />
             </button>
 
@@ -108,6 +146,63 @@ export function Navigation() {
           </div>
         </div>
       </div>
+
+      {isSearchOpen && (
+        <div className="fixed inset-0 z-50 bg-background/80 px-4 pt-24 backdrop-blur-sm sm:px-8">
+          <div className="mx-auto max-w-3xl overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
+            <div className="flex items-center gap-3 border-b border-border px-4 py-3 sm:px-6">
+              <Search className="shrink-0 text-accent" size={22} />
+              <input
+                ref={searchInputRef}
+                type="search"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search perfumes..."
+                aria-label="Search perfumes"
+                className="min-w-0 flex-1 bg-transparent py-2 text-base text-primary outline-none placeholder:text-muted-foreground"
+              />
+              <button
+                type="button"
+                aria-label="Close search"
+                onClick={closeSearch}
+                className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="max-h-[calc(100vh-10rem)] overflow-y-auto p-3 sm:p-4">
+              {searchResults.length > 0 ? (
+                <div className="space-y-1">
+                  {searchResults.map((product) => (
+                    <Link
+                      key={product.id}
+                      href={`/product/${product.id}`}
+                      onClick={closeSearch}
+                      className="group flex items-center justify-between gap-4 rounded-xl px-3 py-3 transition-colors hover:bg-muted sm:px-4"
+                    >
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-medium text-primary sm:text-base">
+                          {product.name}
+                        </span>
+                        <span className="block truncate text-xs text-muted-foreground sm:text-sm">
+                          {product.category} - {product.description}
+                        </span>
+                      </span>
+                      <ArrowRight className="shrink-0 text-accent transition-transform group-hover:translate-x-1" size={18} />
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <div className="px-3 py-10 text-center sm:py-14">
+                  <p className="text-base font-medium text-primary">No products found</p>
+                  <p className="mt-1 text-sm text-muted-foreground">Try searching for a different scent or category.</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
