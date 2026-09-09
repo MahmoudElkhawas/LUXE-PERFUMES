@@ -4,7 +4,7 @@ A modern and responsive perfume e-commerce website built with **Next.js** and **
 
 ## 🚀 Live Demo
 
-🔗 **[View Live Demo](YOUR_VERCEL_URL)**
+🔗 **[View Live Demo](https://perfume-website-design-ten.vercel.app/)**
 
 ---
 
@@ -12,7 +12,7 @@ A modern and responsive perfume e-commerce website built with **Next.js** and **
 
 ### 🏠 Home Page
 
-![LUXE PERFUMES Home](./screenshots/home.png)
+![LUXE PERFUMES Home](./screenshots/Home.png)
 
 ### 🛍️ Product Details
 
